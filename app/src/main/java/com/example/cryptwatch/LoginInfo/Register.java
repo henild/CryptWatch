@@ -45,7 +45,7 @@ public class Register extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
-        btn_signup = (Button) findViewById(R.id.btnlogin);
+        btn_signup = (Button) findViewById(R.id.btn_signup);
         btn_regtolog = (Button) findViewById(R.id.btn_regtolog);
 
 
@@ -56,7 +56,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        regToLog();
+       regToLog();
     }
 
     private void signUp() {
