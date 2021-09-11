@@ -41,9 +41,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -52,6 +52,7 @@
             android:transitionName="tran_username"
             android:id="@+id/log_username"
             android:hint="Username"
+            app:startIconDrawable="@drawable/ic_account"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="5dp">
 
@@ -68,6 +69,7 @@
             android:transitionName="tran_password"
             android:id="@+id/log_password"
             android:hint="Password"
+            app:startIconDrawable="@drawable/ic_password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_margin="5dp">
@@ -154,8 +156,9 @@
             app:cardBackgroundColor="@color/background"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:layout_marginVertical="-10dp"
             app:cardElevation="0dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="-10dp">
 
             <Button
                 android:id="@+id/btn_skip"
