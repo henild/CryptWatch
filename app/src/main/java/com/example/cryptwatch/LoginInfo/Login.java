@@ -50,15 +50,14 @@ public class Login extends AppCompatActivity {
         btn_skip = (Button) findViewById(R.id.btn_skip);
         btn_logtoreg = (Button) findViewById(R.id.btn_logtoreg);
 
+        skip();
+        logToReg();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
             }
         });
-
-       skip();
-       logToReg();
     }
     private void login(){
 
