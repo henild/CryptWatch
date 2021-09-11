@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".DashBoard"
     android:id="@+id/fragment_container"
-    android:background="#C8000000">
+    android:background="#4C4B4B">
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:layout_width="match_parent"
