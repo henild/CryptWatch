@@ -54,6 +54,8 @@
             android:hint="Username"
             app:startIconDrawable="@drawable/ic_account"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
             android:layout_margin="5dp">
 
             <EditText
@@ -72,6 +74,8 @@
             app:startIconDrawable="@drawable/ic_password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
             android:layout_margin="5dp">
 
             <EditText
@@ -106,7 +110,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#5004BD"
+            app:cardBackgroundColor="@color/button"
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"

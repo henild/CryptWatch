@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class Register extends AppCompatActivity {
 
     TextInputLayout tilfullname , tilemail , tilnumber , tilusername , tilpassword;
-    TextInputEditText fullname , email , number , username , password;
+    EditText fullname , email , number , username , password;
     Button btn_signup , btn_regtolog;
 
     @SuppressLint("WrongViewCast")
@@ -39,11 +39,11 @@ public class Register extends AppCompatActivity {
         tilusername = (TextInputLayout) findViewById(R.id.til_username);
         tilpassword = (TextInputLayout) findViewById(R.id.til_password);
 
-        fullname = (TextInputEditText) findViewById(R.id.fullname);
-        email = (TextInputEditText) findViewById(R.id.email);
-        number = (TextInputEditText) findViewById(R.id.number);
-        username = (TextInputEditText) findViewById(R.id.username);
-        password = (TextInputEditText) findViewById(R.id.password);
+        fullname = (EditText) findViewById(R.id.fullname);
+        email = (EditText) findViewById(R.id.email);
+        number = (EditText) findViewById(R.id.number);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
 
         btn_signup = (Button) findViewById(R.id.btnlogin);
         btn_regtolog = (Button) findViewById(R.id.btn_regtolog);
@@ -148,7 +148,6 @@ public class Register extends AppCompatActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    tilusername.setCounterEnabled(true);
                     tilusername.setError(null);
                     tilusername.setErrorEnabled(false);
                 }

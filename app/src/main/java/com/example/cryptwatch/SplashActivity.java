@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cryptwatch.LoginInfo.Login;
+import com.example.cryptwatch.LoginInfo.Register;
 
 public class SplashActivity extends AppCompatActivity {
 
