@@ -51,13 +51,7 @@ public class Login extends AppCompatActivity {
         btn_logtoreg = (Button) findViewById(R.id.btn_logtoreg);
 
         skip();
-        btn_logtoreg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login.this,Register.class);
-                startActivity(intent);
-            }
-        });
+        logToReg();
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,20 +121,20 @@ public class Login extends AppCompatActivity {
         });
     }
 
-//    private void logToReg(){
-//        btn_logtoreg.setOnClickListener(v -> {
-//            Intent intent = new Intent(Login.this, Register.class);
-////            Pair[] pairs = new Pair[7];
-////            pairs[0] = new Pair<View,String>(imageView , "logo_image");
-////            pairs[1] = new Pair<View,String>(slogan_name , "logo_text");
-////            pairs[2] = new Pair<View,String>(login , "tran_signUpText");
-////            pairs[3] = new Pair<View,String>(tilusername , "tran_username");
-////            pairs[4] = new Pair<View,String>(tilpassword , "tran_password");
-////            pairs[5] = new Pair<View,String>(btn_login , "tran_btnlogin");
-////            pairs[6] = new Pair<View,String>(btn_logtoreg , "tran_logtoreg");
-////            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
-////            startActivity(intent,options.toBundle());
-//            startActivity(intent);
-//        });
-//    }
+    private void logToReg(){
+        btn_logtoreg.setOnClickListener(v -> {
+            Intent intent = new Intent(Login.this, Register.class);
+//            Pair[] pairs = new Pair[7];
+//            pairs[0] = new Pair<View,String>(imageView , "logo_image");
+//            pairs[1] = new Pair<View,String>(slogan_name , "logo_text");
+//            pairs[2] = new Pair<View,String>(login , "tran_signUpText");
+//            pairs[3] = new Pair<View,String>(tilusername , "tran_username");
+//            pairs[4] = new Pair<View,String>(tilpassword , "tran_password");
+//            pairs[5] = new Pair<View,String>(btn_login , "tran_btnlogin");
+//            pairs[6] = new Pair<View,String>(btn_logtoreg , "tran_logtoreg");
+//            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Login.this,pairs);
+//            startActivity(intent,options.toBundle());
+            startActivity(intent);
+        });
+    }
 }
