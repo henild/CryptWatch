@@ -49,9 +49,9 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:transitionName="tran_username"
-            android:id="@+id/log_username"
-            android:hint="Username"
+            android:transitionName="tran_email"
+            android:id="@+id/log_email"
+            android:hint="Email"
             app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/black"
@@ -62,7 +62,8 @@
                 android:id="@+id/username"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

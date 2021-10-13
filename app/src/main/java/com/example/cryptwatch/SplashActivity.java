@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.example.cryptwatch.LoginInfo.Login;
 import com.example.cryptwatch.LoginInfo.Register;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -23,13 +25,13 @@ public class SplashActivity extends AppCompatActivity {
     Animation topAnim , bottomAnim;
     ImageView logo;
     TextView appName , tagline;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
 
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
@@ -42,10 +44,18 @@ public class SplashActivity extends AppCompatActivity {
         appName.setAnimation(bottomAnim);
         tagline.setAnimation(bottomAnim);
 
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashActivity.this , Login.class);
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                Intent intent;
+                if (currentUser == null) {
+                    intent = new Intent(SplashActivity.this , Login.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, DashBoard.class);
+                }
 
                 Pair[] pairs = new Pair[2];
                 pairs[0] = new Pair<View,String>(logo, "logo_image");

@@ -1,6 +1,5 @@
 package com.example.cryptwatch.LoginInfo;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,15 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cryptwatch.DashBoard;
 import com.example.cryptwatch.R;
-import com.example.cryptwatch.SplashActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-
-import kotlin.Pair;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
 
@@ -28,12 +30,14 @@ public class Login extends AppCompatActivity {
     EditText username , password;
     TextInputLayout tilusername , tilpassword;
     Button btn_skip , btn_logtoreg , btn_login;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Hooks
         imageView  =(ImageView) findViewById(R.id.img_login);
@@ -43,7 +47,7 @@ public class Login extends AppCompatActivity {
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
-        tilusername = (TextInputLayout) findViewById(R.id.log_username);
+        tilusername = (TextInputLayout) findViewById(R.id.log_email);
         tilpassword = (TextInputLayout) findViewById(R.id.log_password);
 
         btn_login = (Button) findViewById(R.id.btnlogin);
@@ -60,13 +64,12 @@ public class Login extends AppCompatActivity {
         });
     }
     private void login(){
-
         String uname = username.getText().toString().trim();
         String pass = password.getText().toString().trim();
         if(TextUtils.isEmpty(uname)){
             username.requestFocus();
             tilusername.setErrorEnabled(true);
-            tilusername.setError("Enter Username");
+            tilusername.setError("Email is required!");
 
             tilusername.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override
@@ -85,11 +88,12 @@ public class Login extends AppCompatActivity {
 
                 }
             });
+            return;
         }
-        else if(TextUtils.isEmpty(pass)) {
+        if(TextUtils.isEmpty(pass)) {
             password.requestFocus();
             tilpassword.setErrorEnabled(true);
-            tilpassword.setError("Enter Password");
+            tilpassword.setError("Password is required!");
 
             tilpassword.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override
@@ -108,10 +112,21 @@ public class Login extends AppCompatActivity {
 
                 }
             });
+            return;
         }
-        else{
-
-        }
+        Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG).show();
+        firebaseAuth.signInWithEmailAndPassword(uname, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void skip(){

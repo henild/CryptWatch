@@ -21,7 +21,6 @@ public class DashBoard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dash_board);
-        getSupportActionBar().hide();
 
         chipNavigationBar = (ChipNavigationBar) findViewById(R.id.bottom_nav);
         chipNavigationBar.setItemSelected(R.id.home_icon,true);
@@ -30,7 +29,6 @@ public class DashBoard extends AppCompatActivity {
     }
 
     private void bottomMenu(){
-
             chipNavigationBar.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(int i) {
