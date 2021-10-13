@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
-    TextInputLayout tilfullname , tilemail , tilnumber , tilusername , tilpassword;
-    EditText fullname , email , number , username , password;
+    TextInputLayout  tilemail , tilusername , tilpassword;
+    EditText email , username , password;
     Button btn_signup , btn_regtolog;
 
     @SuppressLint("WrongViewCast")
@@ -32,15 +32,11 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         //Hooks
-        tilfullname = (TextInputLayout) findViewById(R.id.til_fullname);
         tilemail = (TextInputLayout) findViewById(R.id.til_email);
-        tilnumber = (TextInputLayout) findViewById(R.id.til_number);
         tilusername = (TextInputLayout) findViewById(R.id.til_username);
         tilpassword = (TextInputLayout) findViewById(R.id.til_password);
 
-        fullname = (EditText) findViewById(R.id.fullname);
         email = (EditText) findViewById(R.id.email);
-        number = (EditText) findViewById(R.id.number);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
@@ -59,36 +55,13 @@ public class Register extends AppCompatActivity {
     }
 
     private void signUp() {
-        String name = fullname.getText().toString().trim();
+
         String mail = email.getText().toString().trim();
-        String mobile = number.getText().toString().trim();
+
         String uname = username.getText().toString().trim();
         String pass = password.getText().toString().trim();
 
-        if(!isValidateName(name)){
-            fullname.requestFocus();
-            tilfullname.setErrorEnabled(true);
-            tilfullname.setError("Enter valid name");
-
-            tilfullname.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    tilfullname.setError(null);
-                    tilfullname.setErrorEnabled(false);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
-        else if (!isValidEmail(mail)){
+        if (!isValidEmail(mail)){
             email.requestFocus();
             tilemail.setErrorEnabled(true);
             tilemail.setError("Enter valid name");
@@ -111,29 +84,7 @@ public class Register extends AppCompatActivity {
                 }
             });
         }
-        else if (!isValidatePhone(mobile)){
-            number.requestFocus();
-            tilnumber.setErrorEnabled(true);
-            tilnumber.setError("Enter valid name");
 
-            tilnumber.getEditText().addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    tilnumber.setError(null);
-                    tilnumber.setErrorEnabled(false);
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-        }
         else if (TextUtils.isEmpty(uname)){
             username.requestFocus();
             tilusername.setErrorEnabled(true);

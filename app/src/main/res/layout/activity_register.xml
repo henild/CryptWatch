@@ -47,18 +47,19 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:id="@+id/til_fullname"
-            app:startIconDrawable="@drawable/ic_username"
+            android:transitionName="tran_username"
+            android:hint="Name"
+            android:id="@+id/til_username"
+            app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fullname"
                 android:textColor="@color/black"
+                android:id="@+id/username"
                 android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -79,47 +80,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
                 android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mobile No."
-            app:startIconDrawable="@drawable/ic_phone"
-            android:id="@+id/til_number"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:id="@+id/number"
-                android:inputType="number"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:transitionName="tran_username"
-            android:hint="Username"
-            android:id="@+id/til_username"
-            app:counterMaxLength="15"
-            app:counterEnabled="true"
-            app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:id="@+id/username"
-                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
