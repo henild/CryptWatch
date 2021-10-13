@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
 
     ImageView imageView;
     TextView slogan_name , login;
-    EditText username , password;
+    EditText email , password;
     TextInputLayout tilusername , tilpassword;
     Button btn_skip , btn_logtoreg , btn_login;
     FirebaseAuth firebaseAuth;
@@ -44,7 +44,7 @@ public class Login extends AppCompatActivity {
         slogan_name = (TextView) findViewById(R.id.slogan_name);
         login = (TextView) findViewById(R.id.login);
 
-        username = (EditText) findViewById(R.id.username);
+        email = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
         tilusername = (TextInputLayout) findViewById(R.id.log_email);
@@ -64,10 +64,10 @@ public class Login extends AppCompatActivity {
         });
     }
     private void login(){
-        String uname = username.getText().toString().trim();
+        String uname = email.getText().toString().trim();
         String pass = password.getText().toString().trim();
         if(TextUtils.isEmpty(uname)){
-            username.requestFocus();
+            email.requestFocus();
             tilusername.setErrorEnabled(true);
             tilusername.setError("Email is required!");
 
