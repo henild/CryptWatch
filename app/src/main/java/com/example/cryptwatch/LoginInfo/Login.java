@@ -23,11 +23,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Login extends AppCompatActivity {
 
     ImageView imageView;
     TextView slogan_name , login;
-    EditText email , password;
+    EditText login_email , login_password;
     TextInputLayout tilusername , tilpassword;
     Button btn_skip , btn_logtoreg , btn_login;
     FirebaseAuth firebaseAuth;
@@ -44,8 +47,8 @@ public class Login extends AppCompatActivity {
         slogan_name = (TextView) findViewById(R.id.slogan_name);
         login = (TextView) findViewById(R.id.login);
 
-        email = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
+        login_email = (EditText) findViewById(R.id.login_email);
+        login_password = (EditText) findViewById(R.id.login_password);
 
         tilusername = (TextInputLayout) findViewById(R.id.log_email);
         tilpassword = (TextInputLayout) findViewById(R.id.log_password);
@@ -64,10 +67,10 @@ public class Login extends AppCompatActivity {
         });
     }
     private void login(){
-        String uname = email.getText().toString().trim();
-        String pass = password.getText().toString().trim();
-        if(TextUtils.isEmpty(uname)){
-            email.requestFocus();
+        String email = login_email.getText().toString().trim();
+        String pass = login_password.getText().toString().trim();
+        if(!isValidEmail(email)){
+            login_email.requestFocus();
             tilusername.setErrorEnabled(true);
             tilusername.setError("Email is required!");
 
@@ -88,10 +91,9 @@ public class Login extends AppCompatActivity {
 
                 }
             });
-            return;
         }
-        if(TextUtils.isEmpty(pass)) {
-            password.requestFocus();
+        else if(!isValidatePassword(pass)) {
+            login_password.requestFocus();
             tilpassword.setErrorEnabled(true);
             tilpassword.setError("Password is required!");
 
@@ -112,21 +114,22 @@ public class Login extends AppCompatActivity {
 
                 }
             });
-            return;
         }
-        Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG).show();
-        firebaseAuth.signInWithEmailAndPassword(uname, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                startActivity(new Intent(getApplicationContext(), DashBoard.class));
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        else {
+            Toast.makeText(Login.this, "Login", Toast.LENGTH_LONG).show();
+            firebaseAuth.signInWithEmailAndPassword(email, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void skip(){
@@ -151,5 +154,22 @@ public class Login extends AppCompatActivity {
 //            startActivity(intent,options.toBundle());
             startActivity(intent);
         });
+    }
+
+    private boolean isValidEmail(String email){
+        String EMAIL_PATTERN = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+
+    private boolean isValidatePassword(String password){
+        String PASSWORD_PATTERN = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";
+        Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher matcher = pattern.matcher(password);
+
+        return matcher.matches();
     }
 }

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.cryptwatch.R;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
@@ -37,7 +36,7 @@ public class Register extends AppCompatActivity {
         tilpassword = (TextInputLayout) findViewById(R.id.til_password);
 
         email = (EditText) findViewById(R.id.email);
-        username = (EditText) findViewById(R.id.username);
+        username = (EditText) findViewById(R.id.Username);
         password = (EditText) findViewById(R.id.password);
 
         btn_signup = (Button) findViewById(R.id.btn_signup);
@@ -111,7 +110,7 @@ public class Register extends AppCompatActivity {
         else if (!isValidatePassword(pass)){
             password.requestFocus();
             tilpassword.setErrorEnabled(true);
-            tilpassword.setError("Enter valid name");
+            tilpassword.setError("Enter valid password");
 
             tilpassword.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override
@@ -136,13 +135,6 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    private boolean isValidateName(String name){
-        String NAME_PATTERN = "^[a-zA-Z\\\\s]*$";
-        Pattern pattern = Pattern.compile(NAME_PATTERN);
-        Matcher matcher = pattern.matcher(name);
-
-        return matcher.matches();
-    }
 
     private boolean isValidEmail(String email){
         String EMAIL_PATTERN = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
@@ -152,13 +144,6 @@ public class Register extends AppCompatActivity {
         return matcher.matches();
     }
 
-    private boolean isValidatePhone(String phone){
-        String PHONE_PATTERN = "^[6-9]\\d{9}$";
-        Pattern pattern = Pattern.compile(PHONE_PATTERN);
-        Matcher matcher = pattern.matcher(phone);
-
-        return matcher.matches();
-    }
 
     private boolean isValidatePassword(String password){
         String PASSWORD_PATTERN = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=.*[@#$%^&+=])" + "(?=\\S+$).{8,20}$";

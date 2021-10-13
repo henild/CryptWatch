@@ -59,7 +59,7 @@
             android:layout_margin="5dp">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/login_email"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             android:layout_margin="5dp">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/login_password"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
