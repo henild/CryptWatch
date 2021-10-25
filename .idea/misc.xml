@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19479166666666667" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_account.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_navbar.xml" value="0.2" />
       </map>
     </option>

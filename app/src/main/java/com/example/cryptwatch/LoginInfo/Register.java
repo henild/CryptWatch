@@ -1,5 +1,6 @@
 package com.example.cryptwatch.LoginInfo;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -11,9 +12,17 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.cryptwatch.DashBoard;
 import com.example.cryptwatch.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,12 +32,14 @@ public class Register extends AppCompatActivity {
     TextInputLayout  tilemail , tilusername , tilpassword;
     EditText email , username , password;
     Button btn_signup , btn_regtolog;
+    private FirebaseAuth mAuth;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         //Hooks
         tilemail = (TextInputLayout) findViewById(R.id.til_email);
@@ -41,6 +52,7 @@ public class Register extends AppCompatActivity {
 
         btn_signup = (Button) findViewById(R.id.btn_signup);
         btn_regtolog = (Button) findViewById(R.id.btn_regtolog);
+        mAuth = FirebaseAuth.getInstance();
 
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +143,32 @@ public class Register extends AppCompatActivity {
             });
         }
         else {
-
+            mAuth.createUserWithEmailAndPassword(mail, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    Toast.makeText(Register.this, "Registered successfully. You can now login!", Toast.LENGTH_SHORT).show();
+                    setUsername(uname);
+                    //startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+    }
+
+    private void setUsername(String username) {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+           return;
+        }
+        UserProfileChangeRequest profileUpdate = new UserProfileChangeRequest.Builder()
+                .setDisplayName(username)
+                .build();
+        user.updateProfile(profileUpdate);
     }
 
 

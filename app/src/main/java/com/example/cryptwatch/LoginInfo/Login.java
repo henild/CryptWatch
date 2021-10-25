@@ -41,6 +41,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signOut();
 
         //Hooks
         imageView  =(ImageView) findViewById(R.id.img_login);

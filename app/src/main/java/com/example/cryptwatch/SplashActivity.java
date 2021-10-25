@@ -33,6 +33,8 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
@@ -48,7 +50,6 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 Intent intent;
                 if (currentUser == null) {
