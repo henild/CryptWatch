@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.cryptwatch.LoginInfo.Login;
 import com.example.cryptwatch.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class AccountFragment extends Fragment {
-
     Button logout;
 
     @Override
@@ -28,8 +30,11 @@ public class AccountFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getActivity(), "Logout!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
