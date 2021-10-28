@@ -23,7 +23,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchbar"/>
+        android:layout_below="@+id/searchbar" />
 
     <ProgressBar
         android:layout_width="wrap_content"
