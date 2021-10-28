@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.cryptwatch.CurrencyRVModel;
 import com.example.cryptwatch.LoginInfo.Login;
 import com.example.cryptwatch.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 
 public class AccountFragment extends Fragment {
