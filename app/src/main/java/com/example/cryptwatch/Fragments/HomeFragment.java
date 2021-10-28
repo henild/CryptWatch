@@ -50,9 +50,9 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
         //Hooks
-        searchbar = (EditText) view.findViewById(R.id.searchbar);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        searchbar = view.findViewById(R.id.searchbar);
+        recyclerView = view.findViewById(R.id.recyclerview);
+        progressBar = view.findViewById(R.id.progressbar);
         currencyRVModelArrayList = new ArrayList<>();
         currencyRVAdapter = new CurrencyRVAdapter(currencyRVModelArrayList,getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -72,7 +72,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 filterCurrencies(s.toString());
-
             }
         });
         return view;
@@ -101,6 +100,7 @@ public class HomeFragment extends Fragment {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray dataArray) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     for(int i = 0; i < dataArray.length(); i++) {
                         JSONObject dataObj = dataArray.getJSONObject(i);

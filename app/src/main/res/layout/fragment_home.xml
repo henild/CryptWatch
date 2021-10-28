@@ -6,15 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.HomeFragment"
     android:orientation="vertical"
-    android:background="@color/button">
+    android:background="@color/button"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
 
     <EditText
         android:id="@+id/searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:hint="Search . . ."
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Search..."
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -23,13 +28,16 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/searchbar" />
+        android:layout_below="@+id/searchbar"
+        android:clipToPadding="false"
+        android:overScrollMode="ifContentScrolls"
+        android:paddingBottom="100dp" />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressbar"
         android:layout_centerInParent="true"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
 </RelativeLayout>
