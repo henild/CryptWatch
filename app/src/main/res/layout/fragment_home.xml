@@ -11,18 +11,31 @@
     android:focusable="true">
 
 
-    <EditText
+    <LinearLayout
         android:id="@+id/searchbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:hint="Search..."
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:hint="Search..."
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"/>
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_search"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
