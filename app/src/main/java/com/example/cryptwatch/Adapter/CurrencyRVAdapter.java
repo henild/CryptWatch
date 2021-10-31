@@ -44,7 +44,7 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull CurrencyRVAdapter.Viewholder holder, int position) {
-        favbutton.findViewById(R.id.button_fav);
+        favbutton = holder.favbutton;
         CurrencyRVModel currencyRVModel = currencyRVModelArrayList.get(position);
         holder.currencyName.setText(currencyRVModel.getCurrencyName());
         holder.currencySymbol.setText(currencyRVModel.getCurrencySymbol());
