@@ -30,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.cryptwatch.Adapter.CurrencyRVAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment {
                         String currencySymbol = dataObj.getString("symbol").toUpperCase(Locale.ROOT);
                         double price = dataObj.getDouble("current_price");
                         double priceChangeIn24Hr = dataObj.getDouble("price_change_percentage_24h");
-                        currencyRVModelArrayList.add(new CurrencyRVModel(currencyName, currencySymbol, price, priceChangeIn24Hr));
+                        currencyRVModelArrayList.add(new CurrencyRVModel(currencyName, currencySymbol, price, priceChangeIn24Hr, false));
                         Log.d("DEBUG", currencyRVModelArrayList.toString());
                     }
                     currencyRVAdapter.notifyDataSetChanged();
