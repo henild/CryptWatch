@@ -2,6 +2,7 @@ package com.example.cryptwatch.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cryptwatch.CurrencyRVModel;
+import com.example.cryptwatch.DataHolder;
 import com.example.cryptwatch.R;
 
 import org.json.JSONArray;
@@ -30,7 +32,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.cryptwatch.Adapter.CurrencyRVAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -49,16 +54,16 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
+        refreshDatabase();
 
         //Hooks
         searchbar = view.findViewById(R.id.searchbar);
         recyclerView = view.findViewById(R.id.recyclerview);
         progressBar = view.findViewById(R.id.progressbar);
-        currencyRVModelArrayList = new ArrayList<>();
-        currencyRVAdapter = new CurrencyRVAdapter(currencyRVModelArrayList,getActivity());
+        currencyRVModelArrayList = DataHolder.getInstance().getData();
+        currencyRVAdapter = new CurrencyRVAdapter(DataHolder.getInstance().getData(), getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(currencyRVAdapter);
-        getCurrencyData();
         searchbar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,6 +83,13 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCurrencyData();
+        refreshDatabase();
+    }
+
     private void filterCurrencies(String query) {
         ArrayList<CurrencyRVModel> filteredList = new ArrayList<>();
         for(CurrencyRVModel item: currencyRVModelArrayList) {
@@ -92,10 +104,40 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public static void refreshDatabase() {
+        FirebaseAuth mAuth;
+        FirebaseFirestore db;
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        try {
+            Log.d("HAHA", "refreshDatabase");
+            db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DataHolder data = DataHolder.getInstance();
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            data.setFirebaseData(document.getData());
+                            Log.d("HAHA", data.getFirebaseData().toString());
+                        } else {
+                            Log.d("HAHA", "No such document");
+                        }
+                    } else {
+                        Log.d("HAHA", "Task failed");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.d("HAHA", e.toString());
+        }
+    }
+
     private void getCurrencyData() {
         String base_url = "https://api.coingecko.com/api/v3";
         String param_url = "/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h";
         String url = base_url + param_url;
+        currencyRVModelArrayList.clear();
 
         RequestQueue reqQueue = Volley.newRequestQueue(getActivity());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -110,7 +152,6 @@ public class HomeFragment extends Fragment {
                         double price = dataObj.getDouble("current_price");
                         double priceChangeIn24Hr = dataObj.getDouble("price_change_percentage_24h");
                         currencyRVModelArrayList.add(new CurrencyRVModel(currencyName, currencySymbol, price, priceChangeIn24Hr, false));
-                        Log.d("DEBUG", currencyRVModelArrayList.toString());
                     }
                     currencyRVAdapter.notifyDataSetChanged();
                 } catch (JSONException e){

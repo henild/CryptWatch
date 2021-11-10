@@ -1,6 +1,7 @@
 package com.example.cryptwatch.Adapter;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cryptwatch.CurrencyRVModel;
+import com.example.cryptwatch.DataHolder;
 import com.example.cryptwatch.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
@@ -27,15 +27,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Viewholder> {
 
     private ArrayList<CurrencyRVModel> currencyRVModelArrayList;
-    final private FirebaseAuth mAuth;
-    final private FirebaseFirestore db;
     final private Context context;
     final private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     public CurrencyRVAdapter(ArrayList<CurrencyRVModel> currencyRVModelArrayList, Context context) {
         this.currencyRVModelArrayList = currencyRVModelArrayList;
@@ -44,8 +43,14 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
         db = FirebaseFirestore.getInstance();
     }
 
+
     public void filteredList(ArrayList<CurrencyRVModel> filteredList) {
         currencyRVModelArrayList = filteredList;
+        notifyDataSetChanged();
+    }
+
+    public void favoriteList(ArrayList<CurrencyRVModel> favoriteList) {
+        currencyRVModelArrayList = favoriteList;
         notifyDataSetChanged();
     }
 
@@ -58,12 +63,18 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull CurrencyRVAdapter.Viewholder holder, int position) {
+        String userUID = mAuth.getCurrentUser().getUid();
+        DocumentReference doc = db.collection("users").document(userUID);
         CurrencyRVModel currencyRVModel = currencyRVModelArrayList.get(position);
         holder.currencyName.setText(currencyRVModel.getCurrencyName());
         holder.currencySymbol.setText(currencyRVModel.getCurrencySymbol());
         holder.currencyRate.setText("₹ "+decimalFormat.format(currencyRVModel.getPrice()));
         holder.currencyChangePercentage.setText(decimalFormat.format(currencyRVModel.getPriceChangeIn24Hr())+" %");
-        holder.favbutton.setChecked(false);
+        if(DataHolder.getInstance().getFirebaseData().containsKey(currencyRVModel.getCurrencySymbol())) {
+            holder.favbutton.setChecked(true);
+        } else {
+            holder.favbutton.setChecked(false);
+        }
         holder.favbutton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -73,23 +84,21 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
                 else {
                     holder.favbutton.setBackgroundDrawable(ContextCompat.getDrawable(context.getApplicationContext(),R.drawable.ic_card_not_favourite));
                 }
-                updateFavourites(currencyRVModel.getCurrencySymbol(), isChecked);
+                // Updates favorites in firebase
+                String ref = currencyRVModel.getCurrencySymbol();
+                Map<String, Object> updates = new HashMap<>();
+                Map<String, Object> firebaseData = DataHolder.getInstance().getFirebaseData();
+                if(isChecked) {
+                    updates.put(ref, null);
+                    doc.set(updates, SetOptions.merge());
+                    firebaseData.put(ref, null);
+                } else {
+                    updates.put(ref, FieldValue.delete());
+                    doc.update(updates);
+                    firebaseData.remove(ref);
+                }
             }
         });
-    }
-
-    private void updateFavourites(String symbol, boolean isChecked) {
-        String userUID = mAuth.getCurrentUser().getUid();
-        DocumentReference doc = db.collection("users").document(userUID);
-        String ref = "favorites+" + symbol;
-        Map<String, Object> updates = new HashMap<>();
-        if(isChecked) {
-           updates.put(ref, null);
-           doc.set(updates, SetOptions.merge());
-       } else {
-           updates.put(ref, FieldValue.delete());
-           doc.update(updates);
-       }
     }
 
     @Override

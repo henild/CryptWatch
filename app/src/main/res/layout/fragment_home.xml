@@ -41,11 +41,11 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/llofsearchbar"
         android:clipToPadding="false"
         android:overScrollMode="ifContentScrolls"
-        android:paddingTop="50dp"
-        android:paddingBottom="100dp"
-        android:layout_below="@+id/llofsearchbar"/>
+        android:paddingTop="10dp"
+        android:paddingBottom="100dp" />
 
     <ProgressBar
         android:layout_width="wrap_content"
