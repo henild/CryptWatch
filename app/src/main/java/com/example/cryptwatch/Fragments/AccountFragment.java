@@ -31,7 +31,7 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account,container,false);
-        logout = (Button) view.findViewById(R.id.btnlogout);
+        logout = view.findViewById(R.id.btnlogout);
         username = view.findViewById(R.id.account_name);
         email = view.findViewById(R.id.account_email);
         mAuth = FirebaseAuth.getInstance();
