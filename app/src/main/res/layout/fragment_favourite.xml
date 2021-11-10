@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.FavouriteFragment">
+    tools:context=".Fragments.FavouriteFragment"
+    android:orientation="vertical"
+    android:background="@color/button"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/recyclerview_fav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:overScrollMode="ifContentScrolls"
+        android:paddingTop="50dp"
+        android:paddingBottom="100dp"/>
+
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Favourite Fragment"
-        android:layout_gravity="center"/>
+        android:id="@+id/progressbar_fav"
+        android:layout_centerInParent="true"
+        android:visibility="visible"/>
 
-</FrameLayout>
+</RelativeLayout>
