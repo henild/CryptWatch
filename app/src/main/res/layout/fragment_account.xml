@@ -27,32 +27,102 @@
                 android:background="@color/card"
                 android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/account_name"
-                    android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_account_name"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="UserName"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:layout_margin="5dp"
+                    android:hint="Username"
+                    android:textColorHint="@color/white"
+                    android:transitionName="tran_email"
+                    app:boxStrokeColor="@color/black"
+                    app:hintTextColor="@color/black"
+                    android:clickable="false">
 
-                <TextView
+                    <EditText
+                        android:id="@+id/account_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:text="USERNAME"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+<!--                <TextView-->
+<!--                    android:id="@+id/account_name"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:text="UserName"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="25dp"-->
+<!--                    android:textStyle="bold" />-->
+
+
+
+
+
+
+                <!--                <TextView-->
+<!--                    android:id="@+id/account_email"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/account_name"-->
+<!--                    android:layout_marginStart="10dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:text="Email"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="25dp"-->
+<!--                    android:textStyle="bold" />-->
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/card"
+                android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_account_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="Email"
+                android:textColorHint="@color/white"
+                android:transitionName="tran_email"
+                app:boxStrokeColor="@color/black"
+                app:hintTextColor="@color/black"
+                android:clickable="false">
+
+                <EditText
                     android:id="@+id/account_email"
-                    android:layout_width="wrap_content"
+                    android:textColorHint="@color/white"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Email"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
-                    android:layout_below="@+id/account_name"/>
+                    android:inputType="textEmailAddress"
+                    android:text="EMAIL"
+                    android:textColor="@color/white" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 
