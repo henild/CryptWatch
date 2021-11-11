@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cryptwatch.ChangePassword;
 import com.example.cryptwatch.CurrencyRVModel;
 import com.example.cryptwatch.LoginInfo.Login;
 import com.example.cryptwatch.R;
@@ -50,6 +51,14 @@ public class AccountFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
                 getActivity().finish();
+            }
+        });
+
+        changepassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() , ChangePassword.class);
+                startActivity(intent);
             }
         });
 
