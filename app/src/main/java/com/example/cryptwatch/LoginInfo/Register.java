@@ -75,7 +75,7 @@ public class Register extends AppCompatActivity {
         if (!isValidEmail(mail)){
             email.requestFocus();
             tilemail.setErrorEnabled(true);
-            tilemail.setError("Enter valid name");
+            tilemail.setError("Enter valid email");
 
             tilemail.getEditText().addTextChangedListener(new TextWatcher() {
                 @Override

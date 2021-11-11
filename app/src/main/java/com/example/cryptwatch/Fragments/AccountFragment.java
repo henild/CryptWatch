@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 public class AccountFragment extends Fragment {
-    Button logout;
+    Button logout , changepassword;
     EditText username, email;
     private FirebaseAuth mAuth;
 
@@ -34,6 +34,7 @@ public class AccountFragment extends Fragment {
         logout = view.findViewById(R.id.btnlogout);
         username = view.findViewById(R.id.account_name);
         email = view.findViewById(R.id.account_email);
+        changepassword = view.findViewById(R.id.btnchangepass);
         mAuth = FirebaseAuth.getInstance();
 
         username.setText(mAuth.getCurrentUser().getDisplayName());

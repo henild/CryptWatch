@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cryptwatch.DashBoard;
+import com.example.cryptwatch.ChangePassword;
 import com.example.cryptwatch.R;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +28,7 @@ public class Login extends AppCompatActivity {
     TextView slogan_name , login;
     EditText login_email , login_password;
     TextInputLayout tilusername , tilpassword;
-    Button btn_logtoreg , btn_login;
+    Button btn_logtoreg , btn_login , btn_forgotpassword;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -49,10 +51,13 @@ public class Login extends AppCompatActivity {
 
         btn_login = (Button) findViewById(R.id.btnlogin);
         btn_logtoreg = (Button) findViewById(R.id.btn_logtoreg);
+        //btn_forgotpassword = (Button) findViewById(R.id.btnforgot);
 
         logToReg();
-        btn_login.setOnClickListener(v -> login());
+        //forgotPassword();
+        btn_login.setOnClickListener(this::onClick);
     }
+
     private void login(){
         String email = login_email.getText().toString().trim();
         String pass = login_password.getText().toString().trim();
@@ -144,4 +149,19 @@ public class Login extends AppCompatActivity {
 
         return matcher.matches();
     }
+
+    private void onClick(View v) {
+        login();
+    }
+
+//    private void forgotPassword() {
+//        btn_forgotpassword.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Login.this, ChangePassword.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
+
 }
