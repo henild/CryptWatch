@@ -42,13 +42,9 @@
                     android:textColorHint="@color/white"
                     android:transitionName="tran_email"
                     app:boxStrokeColor="@color/black"
-                    app:hintTextColor="@color/black"
-                    android:clickable="false"
-                    android:contextClickable="false">
+                    app:hintTextColor="@color/black">
 
                     <EditText
-                        android:clickable="false"
-                        android:contextClickable="false"
                         android:id="@+id/account_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -118,13 +114,9 @@
                 android:textColorHint="@color/white"
                 android:transitionName="tran_email"
                 app:boxStrokeColor="@color/black"
-                app:hintTextColor="@color/black"
-                android:clickable="false"
-                android:contextClickable="false">
+                app:hintTextColor="@color/black">
 
                 <EditText
-                    android:clickable="false"
-                    android:contextClickable="false"
                     android:id="@+id/account_email"
                     android:textColorHint="@color/white"
                     android:layout_width="match_parent"

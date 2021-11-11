@@ -37,7 +37,9 @@ public class AccountFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
 
         username.setText(mAuth.getCurrentUser().getDisplayName());
+        username.setFocusable(false);
         email.setText(mAuth.getCurrentUser().getEmail());
+        email.setFocusable(false);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
