@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -45,6 +46,7 @@ import java.util.Locale;
 public class HomeFragment extends Fragment {
     private ArrayList<CurrencyRVModel> currencyRVModelArrayList;
 
+    SwipeRefreshLayout swipeRefreshLayout;
     EditText searchbar;
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -57,6 +59,7 @@ public class HomeFragment extends Fragment {
         refreshDatabase();
 
         //Hooks
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refreshLayout);
         searchbar = view.findViewById(R.id.searchbar);
         recyclerView = view.findViewById(R.id.recyclerview);
         progressBar = view.findViewById(R.id.progressbar);
@@ -80,6 +83,14 @@ public class HomeFragment extends Fragment {
                 filterCurrencies(s.toString());
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getCurrencyData();
+            }
+        });
+
         return view;
     }
 
