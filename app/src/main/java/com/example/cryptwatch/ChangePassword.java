@@ -96,7 +96,7 @@ public class ChangePassword extends AppCompatActivity {
                         }
                     });
                 }
-                else if (newpass!=confnewpass){
+                else if (!newpass.equals(confnewpass)){
                     confirm_new_password.requestFocus();
                     til_confirm_new_password.setErrorEnabled(true);
                     til_confirm_new_password.setError("Password does not match!");
@@ -135,6 +135,7 @@ public class ChangePassword extends AppCompatActivity {
                                                     Toast.makeText(ChangePassword.this, "Password Updated!", Toast.LENGTH_SHORT).show();
                                                     Intent intent = new Intent(ChangePassword.this, DashBoard.class);
                                                     startActivity(intent);
+                                                    finish();
                                                 } else {
                                                 }
                                             }
