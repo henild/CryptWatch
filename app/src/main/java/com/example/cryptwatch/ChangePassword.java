@@ -85,7 +85,7 @@ public class ChangePassword extends AppCompatActivity {
                         }
                     });
                 }
-                else if (newpass!=confnewpass){
+                else if (!confnewpass.equals(newpass)){
                     confirm_new_password.requestFocus();
                     til_confirm_new_password.setErrorEnabled(true);
                     til_confirm_new_password.setError("Password does not match!");
