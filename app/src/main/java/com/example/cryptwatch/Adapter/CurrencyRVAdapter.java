@@ -32,7 +32,8 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
 
     private ArrayList<CurrencyRVModel> currencyRVModelArrayList;
     final private Context context;
-    final private static DecimalFormat decimalFormat = new DecimalFormat("#.##");
+    final private static DecimalFormat decimalFormat = new DecimalFormat("#.#######");
+    final private static DecimalFormat decimalFormatPercent = new DecimalFormat("#.##");
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
@@ -69,7 +70,7 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
         holder.currencyName.setText(currencyRVModel.getCurrencyName());
         holder.currencySymbol.setText(currencyRVModel.getCurrencySymbol());
         holder.currencyRate.setText("₹ "+decimalFormat.format(currencyRVModel.getPrice()));
-        holder.currencyChangePercentage.setText(decimalFormat.format(currencyRVModel.getPriceChangeIn24Hr())+" %");
+        holder.currencyChangePercentage.setText(decimalFormatPercent.format(currencyRVModel.getPriceChangeIn24Hr())+" %");
         if(DataHolder.getInstance().getFirebaseData().containsKey(currencyRVModel.getCurrencySymbol())) {
             holder.favbutton.setChecked(true);
         } else {

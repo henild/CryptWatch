@@ -1,7 +1,9 @@
 package com.example.cryptwatch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -9,8 +11,15 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +29,7 @@ public class ChangePassword extends AppCompatActivity {
     TextInputLayout til_current_password , til_new_password , til_confirm_new_password;
     EditText current_password , new_password , confirm_new_password;
     Button update;
+    FirebaseUser mauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,7 @@ public class ChangePassword extends AppCompatActivity {
         til_current_password = (TextInputLayout) findViewById(R.id.forgot_til_currpass);
         til_new_password = (TextInputLayout) findViewById(R.id.forgot_til_newpass);
         til_confirm_new_password = (TextInputLayout) findViewById(R.id.forgot_til_connewpass);
+        mauth = FirebaseAuth.getInstance().getCurrentUser();
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +96,7 @@ public class ChangePassword extends AppCompatActivity {
                         }
                     });
                 }
-                else if (newpass!=confnewpass){
+                else if (!newpass.equals(confnewpass)){
                     confirm_new_password.requestFocus();
                     til_confirm_new_password.setErrorEnabled(true);
                     til_confirm_new_password.setError("Password does not match!");
@@ -109,6 +120,30 @@ public class ChangePassword extends AppCompatActivity {
                 }
                 else {
                     //Update in Firebase
+                    AuthCredential credential = EmailAuthProvider
+                            .getCredential(mauth.getEmail(), currpass);
+
+                    mauth.reauthenticate(credential)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        mauth.updatePassword(newpass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(ChangePassword.this, "Password Updated!", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(ChangePassword.this, DashBoard.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Toast.makeText(ChangePassword.this, "Wrong password!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                 }
             }
         });
