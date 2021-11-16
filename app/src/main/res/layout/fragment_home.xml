@@ -12,6 +12,11 @@
     android:id="@+id/refreshLayout" >
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <LinearLayout
         android:id="@+id/llofsearchbar"
         android:layout_width="match_parent"
@@ -54,5 +59,7 @@
         android:id="@+id/progressbar"
         android:layout_centerInParent="true"
         android:visibility="visible"/>
+
+    </RelativeLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

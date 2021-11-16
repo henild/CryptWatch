@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
                 getCurrencyData();
             }
         });
@@ -145,6 +146,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getCurrencyData() {
+        swipeRefreshLayout.setRefreshing(false);
         String base_url = "https://api.coingecko.com/api/v3";
         String param_url = "/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h";
         String url = base_url + param_url;
