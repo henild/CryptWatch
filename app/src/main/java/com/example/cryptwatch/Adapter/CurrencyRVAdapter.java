@@ -67,7 +67,12 @@ public class CurrencyRVAdapter extends RecyclerView.Adapter<CurrencyRVAdapter.Vi
         String userUID = mAuth.getCurrentUser().getUid();
         DocumentReference doc = db.collection("users").document(userUID);
         CurrencyRVModel currencyRVModel = currencyRVModelArrayList.get(position);
-        holder.currencyName.setText(currencyRVModel.getCurrencyName());
+        if(currencyRVModel.getCurrencyName().length() > 15) {
+            holder.currencyName.setText(currencyRVModel.getCurrencyName().substring(0, 15) + "...");
+        } else {
+            holder.currencyName.setText(currencyRVModel.getCurrencyName());
+        }
+
         holder.currencySymbol.setText(currencyRVModel.getCurrencySymbol());
         holder.currencyRate.setText("₹ "+decimalFormat.format(currencyRVModel.getPrice()));
         holder.currencyChangePercentage.setText(decimalFormatPercent.format(currencyRVModel.getPriceChangeIn24Hr())+" %");
