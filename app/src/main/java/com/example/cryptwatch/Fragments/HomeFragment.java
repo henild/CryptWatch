@@ -146,6 +146,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void getCurrencyData() {
+        progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         String base_url = "https://api.coingecko.com/api/v3";
         String param_url = "/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h";
@@ -156,7 +158,6 @@ public class HomeFragment extends Fragment {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray dataArray) {
-                progressBar.setVisibility(View.GONE);
                 try {
                     for(int i = 0; i < dataArray.length(); i++) {
                         JSONObject dataObj = dataArray.getJSONObject(i);
@@ -167,6 +168,8 @@ public class HomeFragment extends Fragment {
                         currencyRVModelArrayList.add(new CurrencyRVModel(currencyName, currencySymbol, price, priceChangeIn24Hr, false));
                     }
                     currencyRVAdapter.notifyDataSetChanged();
+                    recyclerView.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                 } catch (JSONException e){
                     e.printStackTrace();
                     Toast.makeText(getActivity(), "Fail to parse JSON data", Toast.LENGTH_SHORT).show();
